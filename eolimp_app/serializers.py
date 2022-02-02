@@ -70,25 +70,8 @@ class SolutionSerializer(serializers.Serializer):
 
     class Meta:
         model = Solution
-        fields = '__all__'
+        fields = ['student_id', 'problem_id', 'date_solved']
 
-class CreateSolutionSerializer(serializers.Serializer):
-    class Meta:
-        model = Solution
-        fields = '__all__'
-
-
-class ProblemTestSerializer(serializers.Serializer):
-    problem_id = ProblemSerializer()
-
-    class Meta:
-        model = ProblemTest
-        fields = '__all__'
-
-class CreateProblemTestSerializer(serializers.Serializer):
-    class Meta:
-        model = ProblemTest
-        fields = '__all__'
 
 
 class LectureSerializer(serializers.Serializer):
