@@ -1,0 +1,64 @@
+TODO List:
+- Django REST API:
+    - JWT Token implementation
+- Visibility change:
+    - make possible Teacher can see only their groups
+- Expand tests functionality:
+    - implement checking programs' time
+    - set restrictions at defined time
+- Deploy project on one of Cloud platforms: AWS, Google Cloud, DigitalOcean
+- UI/UX: Improve web-service's interface
+- Design:
+    - Make design more comfortable for eyes
+    - Implement dark theme
+- Realize asynchronous test checking
+
+
+Models:
+- User:
+    - username
+    - password
+    - first_name
+    - last_name
+    - email
+- Student(User):
+    - group_id
+    - solutions
+- Teacher(User):
+    - groups
+    - problems
+    - lectures
+- Group:
+    - name
+    - teacher_id
+    - problems
+    - students
+- Problem:
+    - teacher_id (Author)
+    - title
+    - condition
+    - solutions
+    - groups
+    - tests
+    - date_created
+    - date_updated
+- Solution:
+    - student_id (Author)
+    - problem_id
+    - solution_code: str
+    - score: int (default=0)
+    - date_solved
+- Lecture:
+    - teacher_id (Author)
+    - title
+    - description
+    - attachments
+    - date_created
+    - date_updated
+- Attachment:
+    - lecture_id
+    - file
+- ProblemTest:
+    - problem_id
+    - input_data
+    - output_data
