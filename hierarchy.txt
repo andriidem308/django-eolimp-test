@@ -1,0 +1,9 @@
+User
+  Teacher
+    Group
+      Student
+      Problem
+      Lecture
+        Solution
+        ProblemTest
+        Attachment
