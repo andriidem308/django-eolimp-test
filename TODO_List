@@ -59,6 +59,9 @@ Models:
     - lecture_id
     - file
 - ProblemTest:
+- Testline:
+
+
     - problem_id
     - input_data
     - output_data
