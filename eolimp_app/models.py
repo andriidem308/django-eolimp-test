@@ -25,6 +25,9 @@ class Problem(models.Model):
     teacher_id = models.ForeignKey(Teacher, on_delete=models.CASCADE)
     groups = models.ManyToManyField(Group)
     title = models.CharField(max_length=255)
+    description = models.TextField()
+    problem_value = models.FloatField()
+    deadline = models.DateTimeField()
     date_created = models.DateTimeField(auto_now=True)
     date_updated = models.DateTimeField()
 
@@ -43,10 +46,10 @@ class Student(models.Model):
 
 
 class Solution(models.Model):
-    problem_id = models.OneToOneField(Problem, on_delete=models.CASCADE)
+    problem_id = models.ForeignKey(Problem, on_delete=models.CASCADE)
     student_id = models.ForeignKey(Student, on_delete=models.CASCADE)
     solution_code = models.TextField()
-    score = models.IntegerField(default=0)
+    score = models.FloatField()
     date_solved = models.DateTimeField()
 
     class Meta:
@@ -55,6 +58,7 @@ class Solution(models.Model):
 
 class Lecture(models.Model):
     teacher_id = models.ForeignKey(Teacher, on_delete=models.CASCADE)
+    groups = models.ManyToManyField(Group)
     title = models.CharField(max_length=255)
     description = models.TextField()
     date_created = models.DateTimeField(auto_now=True)
