@@ -1,14 +1,12 @@
+from django.conf import settings
 from django.db import models
-from django.contrib.auth.models import AbstractUser, User
 
-#
-# class User(AbstractUser):
-#     is_teacher = models.BooleanField(default=False)
-#     is_student = models.BooleanField(default=False)
+
+User = settings.AUTH_USER_MODEL
 
 
 class Teacher(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    # user = models.ForeignKey(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
 
@@ -36,7 +34,7 @@ class Problem(models.Model):
 
 
 class Student(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    # user = models.ForeignKey(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     group_id = models.ForeignKey(Group, on_delete=models.CASCADE)

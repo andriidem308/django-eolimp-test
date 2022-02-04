@@ -21,8 +21,8 @@ urlpatterns = [
     path('api/', include('eolimp_app.api_urls')),
     path('', include('eolimp_app.urls')),
 
-    # ------------------------------------
-    # TEST urls: delete when finish
-    # ------------------------------------
-    path('createmodels/', include('eolimp_app.create_models_urls')),
+    # # ------------------------------------
+    # # TEST urls: delete when finish
+    # # ------------------------------------
+    # path('createmodels/', include('eolimp_app.create_models_urls')),
 ]
