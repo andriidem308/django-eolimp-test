@@ -18,6 +18,11 @@ from django.urls import include, path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('', include('eolimp_app.urls')),
-    path('api/', include('eolimp_app.api_urls'))
+    path('api/', include('eolimp_app.api_urls')),
+    path('', include('eolimp_app.urls')),
+
+    # ------------------------------------
+    # TEST urls: delete when finish
+    # ------------------------------------
+    path('createmodels/', include('eolimp_app.create_models_urls')),
 ]
