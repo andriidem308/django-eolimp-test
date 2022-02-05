@@ -6,9 +6,14 @@ User = settings.AUTH_USER_MODEL
 
 
 class Teacher(models.Model):
-    # user = models.ForeignKey(User, on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user._teacher = True
+
+    class Meta:
+        ordering = ['user__last_name', 'user__first_name']
+
+    def __str__(self):
+        return self.user.get_full_name()
 
 
 class Group(models.Model):
@@ -17,6 +22,9 @@ class Group(models.Model):
 
     class Meta:
         ordering = ['group_name']
+
+    def __str__(self):
+        return self.group_name
 
 
 class Problem(models.Model):
@@ -27,20 +35,28 @@ class Problem(models.Model):
     problem_value = models.FloatField()
     deadline = models.DateTimeField()
     date_created = models.DateTimeField(auto_now=True)
-    date_updated = models.DateTimeField()
+    date_updated = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ['date_created']
 
 
 class Student(models.Model):
-    # user = models.ForeignKey(User, on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user._student = True
     group_id = models.ForeignKey(Group, on_delete=models.CASCADE)
 
     class Meta:
-        ordering = ['last_name', 'first_name']
+        ordering = ['user__last_name', 'user__first_name']
+
+    def __str__(self):
+        return self.user.get_full_name()
+
+    def get_group(self):
+        return self.group_id
+
+    def get_group_name(self):
+        return self.group_id.group_name
 
 
 class Solution(models.Model):
@@ -48,10 +64,16 @@ class Solution(models.Model):
     student_id = models.ForeignKey(Student, on_delete=models.CASCADE)
     solution_code = models.TextField()
     score = models.FloatField()
-    date_solved = models.DateTimeField()
+    date_solved = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ['date_solved']
+
+    def get_owner(self):
+        return self.student_id
+
+    def get_owner_name(self):
+        return self.student_id.user.get_full_name()
 
 
 class Lecture(models.Model):
@@ -60,15 +82,18 @@ class Lecture(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
     date_created = models.DateTimeField(auto_now=True)
-    date_updated = models.DateTimeField()
+    date_updated = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ['date_created']
 
+    def __str__(self):
+        return self.title
+
 
 class Attachment(models.Model):
     lecture_id = models.ForeignKey(Lecture, on_delete=models.CASCADE)
-    attachment_file = models.FilePathField()
+    attachment_file = models.FileField(null=True)
 
     class Meta:
         ordering = ['pk']
@@ -76,8 +101,8 @@ class Attachment(models.Model):
 
 class ProblemTest(models.Model):
     problem_id = models.ForeignKey(Problem, on_delete=models.CASCADE)
-    input_data = models.CharField(max_length=255)
-    output_data = models.CharField(max_length=255)
+    input_data = models.FileField(null=True)
+    output_data = models.FileField(null=True)
 
     class Meta:
         ordering = ['pk']
