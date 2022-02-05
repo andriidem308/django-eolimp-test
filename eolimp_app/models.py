@@ -36,6 +36,7 @@ class Problem(models.Model):
     deadline = models.DateTimeField()
     date_created = models.DateTimeField(auto_now=True)
     date_updated = models.DateTimeField(auto_now=True)
+    need_to_check = models.BooleanField(null=True)
 
     class Meta:
         ordering = ['date_created']
@@ -65,6 +66,7 @@ class Solution(models.Model):
     solution_code = models.TextField()
     score = models.FloatField()
     date_solved = models.DateTimeField(auto_now=True)
+    checked = models.BooleanField(default=False, null=True)
 
     class Meta:
         ordering = ['date_solved']
