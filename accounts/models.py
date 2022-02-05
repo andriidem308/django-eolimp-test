@@ -26,7 +26,7 @@ class UserManager(BaseUserManager):
         )
 
         user.staff = True
-        user.teacher = True
+        user._teacher = True
 
         user.save(using=self._db)
         return user
@@ -40,7 +40,7 @@ class UserManager(BaseUserManager):
         )
 
         user.staff = True
-        user.student = True
+        user._student = True
 
         user.save(using=self._db)
         return user
@@ -78,16 +78,16 @@ class User(AbstractBaseUser):
     is_active = models.BooleanField(default=True)
     admin = models.BooleanField(default=False)
     staff = models.BooleanField(default=False)
-    teacher = models.BooleanField(default=False)
-    student = models.BooleanField(default=False)
+    _teacher = models.BooleanField(default=False)
+    _student = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name']
 
     def get_full_name(self):
-        return self.email
+        return f'{self.first_name} {self.last_name}'
 
-    def get_short_name(self):
+    def get_email(self):
         return self.email
 
     def has_perm(self, perm, obj=None):
@@ -118,10 +118,10 @@ class User(AbstractBaseUser):
 
     @property
     def is_teacher(self):
-        return self.teacher
+        return self._teacher
 
     @property
     def is_student(self):
-        return self.student
+        return self._student
 
     objects = UserManager()
