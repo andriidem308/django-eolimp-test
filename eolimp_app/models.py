@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.forms import TextInput
 
 
 User = settings.AUTH_USER_MODEL
@@ -32,10 +33,14 @@ class Problem(models.Model):
     groups = models.ManyToManyField(Group)
     title = models.CharField(max_length=255)
     description = models.TextField()
+
     problem_value = models.FloatField()
+    # max_execution_time = models.FloatField()
+
     deadline = models.DateTimeField()
     date_created = models.DateTimeField(auto_now=True)
     date_updated = models.DateTimeField(auto_now=True)
+
     need_to_check = models.BooleanField(null=True)
 
     class Meta:
