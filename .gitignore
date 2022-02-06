@@ -131,3 +131,4 @@ dmypy.json
 # IDEA
 .idea/
 
+/eolimp_app/migrations/
