@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2 class="mb-3">Лекції</h2>
+    <a href="{% url 'home' %}" class="btn btn-primary mb-3" role="button">Нова лекція</a>
+    <div class="card">
+        <table class="table mb-0">
+            <thead>
+                <tr>
+                    <th>Лекція</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for lecture in lectures %}
+                <tr>
+                    <td class="align-middle"><a href="{% url 'home' %}">{{ lecture.title }}</a></td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td class="bg-light text-center font-italic" colspan="5">Ви не додали ще ні одної лекції.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

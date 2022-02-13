@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2 class="mb-3">Групи</h2>
+    <a href="{% url 'home' %}" class="btn btn-primary mb-3" role="button">Нова група</a>
+    <div class="card">
+        <table class="table mb-0">
+            <thead>
+                <tr>
+                    <th>Група</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for group in groups %}
+                <tr>
+                    <td class="align-middle"><a href="{% url 'home' %}">{{ group.group_name }}</a></td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td class="bg-light text-center font-italic" colspan="5">Ви не додали ще ні одної групи.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
